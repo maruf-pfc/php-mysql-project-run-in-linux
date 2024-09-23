@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permission (htdocs --> /opt/lampp) Q/A</title>
+</head>
+<body>
+<div class="container">
+        <h1>Permission (htdocs --> /opt/lampp) Q/A</h1>
+
+        <h2>Question:</h2>
+        <p>
+            I have a directory located at <code>admin:///opt/lampp/htdocs</code> , which currently has permissions restricted to the root user. Since my username is "maruf" and I need to frequently access this directory for my PHP MySQL project, how can I grant my user account the necessary permissions to access and modify files in this root folder? Additionally, I would like to use Visual Studio Code for my development work.
+        </p>
+
+        <h2>Response:</h2>
+        <p>
+            To give your user "maruf" access to the <code>/opt/lampp/htdocs</code> directory and allow you to
+            work with VSCode, you can change the ownership and permissions of the folder. Here are the steps:
+        </p>
+        <ol>
+            <li>
+                <strong>Change Ownership:</strong> You can change the ownership of the folder to "maruf" using the 
+                <code>chown</code> command:
+                <pre><code>sudo chown -R maruf:maruf /opt/lampp/htdocs</code></pre>
+            </li>
+            <li>
+                <strong>Adjust Permissions:</strong> If you also want to modify permissions, you can use the 
+                <code>chmod</code> command. For example, to give read, write, and execute permissions to the owner 
+                and group, and read and execute permissions to others:
+                <pre><code>sudo chmod -R 755 /opt/lampp/htdocs</code></pre>
+            </li>
+            <li>
+                <strong>Add User to <code>www-data</code> Group (Optional):</strong> If the web server uses the 
+                <code>www-data</code> group, you can also add "maruf" to this group:
+                <pre><code>sudo usermod -aG www-data maruf</code></pre>
+            </li>
+            <li>
+                <strong>Restart the Web Server:</strong> If needed, restart your web server to apply the changes:
+                <pre><code>sudo /opt/lampp/lampp restart</code></pre>
+            </li>
+        </ol>
+        <p>
+            After following these steps, you should be able to work on your PHP project in VSCode without permission issues.
+        </p>
+    </div>
+</body>
+</html>
